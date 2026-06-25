@@ -1,0 +1,10 @@
+# Slides do PPT de onboarding (imagens proprietárias, não versionadas)
+ppt de onboarding/
+
+# Sistema operacional
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Outputs gerados pelo skill (não versionar planejamentos de clientes)
+planejamento_*.html
