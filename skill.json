@@ -1,8 +1,8 @@
 {
   "name": "planejamento",
   "displayName": "Planejamento Estratégico — Duo Digital Growth",
-  "description": "Gera o planejamento estratégico inicial de um novo cliente em HTML, seguindo a estrutura do PPT de onboarding da Duo Digital Growth (slides 13–61). Transforma transcripts de reuniões, handoff e dados do cliente em documento profissional para apresentação.",
-  "version": "1.0.0",
+  "description": "Gera o planejamento estratégico inicial de um novo cliente em HTML, seguindo a estrutura do método de onboarding da Duo Digital Growth (14 seções: Missão BASE, Market Sizing, Jobs to Be Done, Benchmarking, SWOT, Personas, Processo Decisório, OKRs, Canais, RACI, Investimento, Funil, Cronograma D0–D15). Transforma transcripts de reunião, handoff e dados do cliente em documento HTML profissional para apresentação.",
+  "version": "1.1.0",
   "author": "Duo Digital Growth",
   "license": "private",
   "keywords": [
@@ -16,7 +16,7 @@
   ],
   "platforms": ["claude"],
   "command": "/planejamento",
-  "commandFile": ".claude/commands/planejamento.md",
+  "commandFile": ".claude/skills/planejamento/SKILL.md",
   "inputs": [
     "transcript da reunião de vendas (.txt)",
     "transcript da reunião de boas-vindas (.txt)",
@@ -24,7 +24,7 @@
     "instagram do cliente",
     "site do cliente (quando disponível)"
   ],
-  "output": "planejamento_[nome-do-cliente].html",
+  "output": "saidas/planejamentos/planejamento_[nome-do-cliente].html",
   "sections": [
     "Missão / Método BASE",
     "Entregáveis BASE (B/A/S/E)",
