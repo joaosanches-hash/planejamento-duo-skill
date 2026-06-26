@@ -41,12 +41,13 @@ Concorrentes com nome real. Regiões mencionadas nas reuniões. Objeções que o
 - **Arquivos opcionais:** Instagram do cliente, site do cliente
 - **Output:** `saidas/planejamentos/planejamento_[nome-do-cliente].html`
 
-**Nomenclatura padrão dos transcripts:**
+**Nomenclatura sugerida** (para arquivos criados manualmente — não obrigatória):
 ```
 dados/transcripts/vendas-[cliente]-[YYYY-MM-DD].txt
 dados/transcripts/kickoff-[cliente]-[YYYY-MM-DD].txt
 dados/transcripts/handoff-[cliente].md
 ```
+Arquivos de terceiros com nomes diferentes são aceitos normalmente — o tipo é identificado pelo conteúdo, não pelo nome.
 
 ---
 
@@ -58,7 +59,7 @@ Ler silenciosamente, em ordem:
 1. `_memoria/empresa.md`
 2. `_memoria/preferencias.md`
 3. `_memoria/estrategia.md`
-4. Todos os arquivos em `dados/transcripts/` relevantes ao cliente em análise
+4. **Todos os arquivos presentes em `dados/transcripts/`**, independente do nome — ler o conteúdo de cada um e classificar internamente pelo tipo (reunião de vendas, kickoff, handoff, outro). Arquivos de terceiros com nomes arbitrários são aceitos normalmente.
 
 Com base no que encontrar, determinar o **modo de operação** — sem mencionar isso ao usuário:
 
