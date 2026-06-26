@@ -36,47 +36,68 @@ Concorrentes com nome real. Regiões mencionadas nas reuniões. Objeções que o
 
 ## DEPENDÊNCIAS
 
-- **Arquivos do cliente (obrigatórios):** transcript de vendas, transcript de kickoff, formulário de handoff
-- **Arquivos do cliente (recomendados):** Instagram, site
-- **Contexto do workspace:** `_memoria/empresa.md`, `_memoria/preferencias.md`, `_memoria/estrategia.md`
+- **Memória do workspace:** `_memoria/empresa.md`, `_memoria/preferencias.md`, `_memoria/estrategia.md`
+- **Transcripts armazenados:** `dados/transcripts/` — arquivos `.txt` ou `.md` de reuniões de vendas, kickoff e handoff
+- **Arquivos opcionais:** Instagram do cliente, site do cliente
 - **Output:** `saidas/planejamentos/planejamento_[nome-do-cliente].html`
+
+**Nomenclatura padrão dos transcripts:**
+```
+dados/transcripts/vendas-[cliente]-[YYYY-MM-DD].txt
+dados/transcripts/kickoff-[cliente]-[YYYY-MM-DD].txt
+dados/transcripts/handoff-[cliente].md
+```
 
 ---
 
 ## WORKFLOW — 4 PASSOS OBRIGATÓRIOS
 
-### PASSO 0 — Carregar contexto do workspace
+### PASSO 0 — Carregar contexto e detectar modo de operação
 
-Antes de qualquer leitura de arquivos do cliente, ler silenciosamente:
-- `_memoria/empresa.md`
-- `_memoria/preferencias.md`
-- `_memoria/estrategia.md`
+Ler silenciosamente, em ordem:
+1. `_memoria/empresa.md`
+2. `_memoria/preferencias.md`
+3. `_memoria/estrategia.md`
+4. Todos os arquivos em `dados/transcripts/` relevantes ao cliente em análise
 
-Esse contexto serve de referência cruzada: se o cliente em análise for o mesmo do workspace, usar os dados confirmados aqui como base. Se for um cliente novo (diferente do workspace), usar apenas como referência de formato e maturidade típica.
+Com base no que encontrar, determinar o **modo de operação** — sem mencionar isso ao usuário:
 
-Não mencionar esta leitura para o usuário — só usar o contexto.
+| Modo | Condição | Qualidade do output |
+|---|---|---|
+| **COMPLETO** | `_memoria/` preenchida + transcripts em `dados/transcripts/` | Máxima — síntese + falas brutas |
+| **MEMÓRIA** | `_memoria/` preenchida, sem transcripts | Boa — dados estruturados, sem verbatim |
+| **VAZIO** | `_memoria/` vazia ou placeholder | Bloqueado — pedir inputs |
+
+**Se modo VAZIO:** parar e informar:
+> "Não encontrei contexto suficiente para gerar o planejamento. Você pode rodar `/instalar` para configurar o workspace, ou enviar diretamente os transcripts de vendas, kickoff e o handoff."
+
+**Se modo MEMÓRIA:** prosseguir normalmente, mas ao final do Passo 1 informar:
+> "Não encontrei transcripts em `dados/transcripts/`. Vou usar o contexto do workspace. O planejamento ficará completo, mas seções como Jobs to Be Done e Processo Decisório serão menos ricas em linguagem verbatim do cliente. Se tiver os transcripts, salve em `dados/transcripts/` e rode novamente."
 
 ---
 
 ### PASSO 1 — Leitura e Briefing Interno
 
-Leia **tudo** que o usuário fornecer antes de gerar qualquer linha de HTML:
+Com base no modo detectado no Passo 0, construir o briefing:
 
-- **Transcript de vendas** (.txt) — identifique: dor principal, expectativas, objeções, números mencionados, histórico de tráfego, equipe comercial
-- **Transcript de boas-vindas / kickoff** (.txt) — identifique: nuances do negócio, estilo do cliente, informações complementares, nível de maturidade digital
-- **Formulário Handoff** — dados estruturados: nicho, produto, ticket, metas, orçamento de mídia, concorrentes declarados
-- **Instagram do cliente** — analise: nicho, posicionamento visual, engajamento, tipo de conteúdo, tom de voz
-- **Site do cliente** — analise: proposta de valor, serviços, diferenciais, CTAs, páginas de destino
+**Se modo COMPLETO** — combinar as duas fontes:
+- `_memoria/` fornece: dados estruturados, foco atual, budget confirmado, concorrentes, perfil de cliente
+- Transcripts fornecem: falas brutas, objeções verbalizadas, tom do cliente, nuances não capturadas na síntese, números específicos mencionados na reunião
+- Ao cruzar as duas fontes, **dados do transcript prevalecem** sobre a síntese quando houver divergência
 
-Ao final da leitura, construa internamente um briefing completo com:
+**Se modo MEMÓRIA** — usar apenas `_memoria/`:
+- `_memoria/empresa.md` — nome, segmento, produto, ticket, equipe, concorrentes
+- `_memoria/preferencias.md` — perfil do comprador, tom de voz, o que evitar
+- `_memoria/estrategia.md` — meta, budget, gargalos, prioridades
+
+**Em ambos os casos**, verificar se o usuário passou algum arquivo adicional na conversa (Instagram, site, handoff avulso) e incorporar.
+
+Ao final, construir internamente:
 - Nome da empresa · Segmento · Produto principal · Ticket médio
 - Situação atual (leads, faturamento, CRM, histórico de tráfego)
 - Meta declarada + prazo + orçamento de mídia confirmado
 - Concorrentes identificados (com dados reais de presença digital)
 - Perfil do comprador (quem compra, como decide, ciclo médio)
-
-**Se algum dos arquivos obrigatórios estiver ausente**, perguntar antes de continuar:
-> "Não encontrei o [transcript de vendas / transcript de kickoff / formulário de handoff]. Você pode passar? Sem ele o planejamento fica com lacunas importantes."
 
 ---
 
