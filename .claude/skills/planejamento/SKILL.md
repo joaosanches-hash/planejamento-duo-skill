@@ -37,15 +37,15 @@ Concorrentes com nome real. Regiões mencionadas nas reuniões. Objeções que o
 ## DEPENDÊNCIAS
 
 - **Memória do workspace:** `_memoria/empresa.md`, `_memoria/preferencias.md`, `_memoria/estrategia.md`
-- **Transcripts armazenados:** `dados/transcripts/` — arquivos `.txt` ou `.md` de reuniões de vendas, kickoff e handoff
+- **Transcripts armazenados:** `transcripts/` — arquivos `.txt` ou `.md` de reuniões de vendas, kickoff e handoff
 - **Arquivos opcionais:** Instagram do cliente, site do cliente
-- **Output:** `saidas/planejamentos/planejamento_[nome-do-cliente].html`
+- **Output:** `planejamentos/planejamento_[nome-do-cliente].html`
 
 **Nomenclatura sugerida** (para arquivos criados manualmente — não obrigatória):
 ```
-dados/transcripts/vendas-[cliente]-[YYYY-MM-DD].txt
-dados/transcripts/kickoff-[cliente]-[YYYY-MM-DD].txt
-dados/transcripts/handoff-[cliente].md
+transcripts/vendas-[cliente]-[YYYY-MM-DD].txt
+transcripts/kickoff-[cliente]-[YYYY-MM-DD].txt
+transcripts/handoff-[cliente].md
 ```
 Arquivos de terceiros com nomes diferentes são aceitos normalmente — o tipo é identificado pelo conteúdo, não pelo nome.
 
@@ -59,7 +59,7 @@ Ler silenciosamente, em ordem:
 1. `_memoria/empresa.md`
 2. `_memoria/preferencias.md`
 3. `_memoria/estrategia.md`
-4. **Todos os arquivos presentes em `dados/transcripts/`**, independente do nome — ler o conteúdo de cada um e classificar internamente pelo tipo (reunião de vendas, kickoff, handoff, outro). Arquivos de terceiros com nomes arbitrários são aceitos normalmente.
+4. **Todos os arquivos presentes em `transcripts/`**, independente do nome — ler o conteúdo de cada um e classificar internamente pelo tipo (reunião de vendas, kickoff, handoff, outro). Arquivos de terceiros com nomes arbitrários são aceitos normalmente.
 
 Com base no que encontrar, determinar o **modo de operação** — sem mencionar isso ao usuário:
 
@@ -244,7 +244,7 @@ Só após esse filtro, gerar o HTML.
 
 ## GERAÇÃO DO HTML
 
-Criar o arquivo em `saidas/planejamentos/planejamento_[nome-do-cliente].html`. Se a pasta não existir, criá-la silenciosamente antes de gerar o arquivo.
+Criar o arquivo em `planejamentos/planejamento_[nome-do-cliente].html`. Se a pasta não existir, criá-la silenciosamente antes de gerar o arquivo.
 
 ---
 
@@ -673,6 +673,6 @@ Só salvar o arquivo após confirmar todos os itens:
 - [ ] Matriz RACI tem 5 colunas (Estrategista · Tráfego · CS · Head · Cliente)
 - [ ] Timeline começa em D0, vai até D15+, inclui LP/criativos/vídeos explicitamente
 - [ ] Sem datas de calendário no cronograma — apenas marcos relativos Dxx
-- [ ] Arquivo salvo em `saidas/planejamentos/planejamento_[nome-do-cliente].html`
+- [ ] Arquivo salvo em `planejamentos/planejamento_[nome-do-cliente].html`
 
 **Após salvar, informar o caminho completo do arquivo gerado.**
