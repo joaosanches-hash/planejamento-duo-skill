@@ -513,17 +513,54 @@ Setas laterais: MARKETING (aponta para LEAD/MQL) e VENDAS (aponta para SQL em di
 
 ## FILOSOFIA DE DESIGN — PRINCÍPIOS EVOLUTIVOS
 
-O design de cada planejamento é uma decisão estratégica, não um template a copiar. Cada entrega deve parecer que foi feita especificamente para aquele cliente — porque foi. O padrão abaixo são princípios de excelência, não receita. Evolua-os a cada projeto.
+O design de cada planejamento é uma decisão estratégica, não um template a copiar. Cada entrega deve parecer que foi feita especificamente para aquele cliente — porque foi. Abaixo estão os únicos constraints fixos e, dentro deles, liberdade total para surpreender.
 
 ---
 
-### IDENTIDADE VISUAL DUO DIGITAL
+### IDENTIDADE VISUAL DUO DIGITAL — CONSTRAINTS FIXOS
 
-**Paleta core:** laranja `#E8652A` · preto quente `#09080A` · cream `#F0EDE8` · cinzas warm
+Estes são os únicos elementos não negociáveis de identidade:
 
-**Tipografia:** Poppins (preferencial — pesos 400/600/700/800/900) via Google Fonts. Usar `clamp()` para tipografia fluida que funciona em qualquer largura de tela.
+- **Cor primária:** laranja `#E8652A` (accent, eyebrows, destaques, hover states)
+- **Fundo:** preto/dark obrigatório — qualquer tom de preto quente ou neutro funciona (`#09080A`, `#0A0A0A`, `#0D0B10`, `#080808`, etc.)
+- **Texto principal:** cream/off-white quente (não branco puro)
+- **Dark theme:** sem exceção — nunca usar fundo claro
+- **Tipografia:** Poppins via Google Fonts como base (pode combinar com outras sans-serifs para criar contraste tipográfico)
+- **Rodapé em todos os slides:** `@DUODIGITAL_BR | WWW.DIGITALDUO.COM.BR`
 
-**Rodapé em todos os slides:** `@DUODIGITAL_BR | WWW.DIGITALDUO.COM.BR`
+Tudo o mais — proporções, grid, espaçamento, radius, sombras, espessura de bordas, estilo de cards, direção das animações — é decisão criativa do projeto.
+
+---
+
+### DIREÇÃO ESTÉTICA — ESCOLHER UMA POR PROJETO
+
+Antes de escrever uma linha de CSS, escolher internamente a direção estética que melhor serve este cliente. A escolha deve ser motivada pelo perfil do negócio, segmento e tom da reunião — não por preferência aleatória.
+
+**Direção 1 — EDITORIAL**
+Tipografia enorme como elemento visual, muito espaço negativo, grid assimétrico deliberado, poucos elementos por seção. Ideal para: clientes premium, arquitetura, design de interiores, serviços de alto ticket.
+*Sinal de que serve:* cliente tem portfólio visual forte ou quer transmitir sofisticação.
+
+**Direção 2 — TÉCNICO-INDUSTRIAL**
+Grid denso com dados em destaque, uso de fontes monoespaçadas para labels e métricas, linhas como elementos estruturais, visual de "painel de controle". Ideal para: indústria, B2B, tecnologia, construção civil.
+*Sinal de que serve:* cliente pensa em números, eficiência, processos.
+
+**Direção 3 — CINÉTICO**
+Animações de entrada pronunciadas, seções que surgem com movimento expressivo, transições de scroll agressivas, energia visual alta. Ideal para: varejo, e-commerce, lifestyle, clientes jovens.
+*Sinal de que serve:* reunião foi animada, cliente é extrovertido, produto tem apelo emocional.
+
+**Direção 4 — MINIMAL-LUXURY**
+Máximo 2–3 elementos por seção, opacidade altíssima nos elementos decorativos, fontes finas em tamanhos grandes, silêncio visual deliberado. Ideal para: alto ticket, exclusividade, imobiliário premium.
+*Sinal de que serve:* ticket médio alto, cliente fala em "exclusividade" e "experiência".
+
+**Direção 5 — DATA-DRIVEN**
+Números enormes como decoração, gráficos como elemento visual principal, tabelas com estilo, destaque visual para métricas e percentuais. Ideal para: clientes que querem ver resultados, performance marketing, franquias.
+*Sinal de que serve:* cliente perguntou sobre ROI, CPL, resultados de outros clientes.
+
+**Direção 6 — REGIONAL-BOLD**
+Tipografia expressiva e sem medo, contraste alto, cores com mais saturação dentro da paleta, menos sutileza e mais presença. Ideal para: varejo popular, comércio local, clientes de cidade menor.
+*Sinal de que serve:* cliente é comunicativo, negócio é popular, produto tem apelo de massa.
+
+As direções podem ser combinadas (ex.: Editorial + Data-driven para uma consultoria de alto ticket com foco em resultados). O que não pode é copiar o último planejamento gerado.
 
 ---
 
@@ -539,121 +576,56 @@ Exemplo bom: *"Do varejo nacional ao epicentro do crescimento imobiliário do Ma
 
 ---
 
-### DARK THEME — PADRÃO ATUAL
+### ANIMAÇÕES — OBRIGATÓRIAS, IMPLEMENTAÇÃO LIVRE
 
-O padrão atual da Duo Digital é dark theme com tons quentes. Usar em todos os novos planejamentos, salvo instrução contrária.
+Todo planejamento deve ter as 6 camadas de animação abaixo. A implementação técnica de cada uma é decisão do projeto — não existe código prescrito. Inventar abordagens novas é encorajado.
 
-**Design tokens de referência (evoluir a cada projeto):**
-```css
-:root {
-  --bg: #09080A;           /* fundo principal — preto quente */
-  --bg2: #0E0C0F;          /* fundo alternado entre seções */
-  --card: rgba(255,242,225,0.03);
-  --card-h: rgba(255,242,225,0.055);
-  --border: rgba(245,235,215,0.09);
-  --border-h: rgba(232,101,42,0.3);
-  --orange: #E8652A;
-  --orange-l: #F07535;
-  --orange-deep: #B84E1F;
-  --orange-glow: rgba(232,101,42,0.12);
-  --ink: #F0EDE8;           /* texto principal — cream quente */
-  --gray: #7A7268;          /* texto secundário */
-  --gray-l: #BFB8AF;
-  --white: #FFFFFF;
-}
-```
+**1. Custom Cursor** — cursor personalizado com dois elementos (posição imediata + follow suave com lerp). O estilo visual — tamanho, forma, blend mode, cor, reação ao hover em links — é livre.
 
-Alternar `--bg` e `--bg2` entre seções para criar respiração visual sem quebrar o ritmo.
+**2. Progress Bar** — indicador de progresso de leitura. Pode ser barra no topo, linha lateral, contador numérico, ou qualquer outro elemento que comunique posição na página.
 
----
+**3. Navegação Lateral** — gerada via JS a partir das sections. Atualiza o item ativo por IntersectionObserver. O estilo é livre: pontos, traços, labels, números — o que melhor serve a direção estética escolhida.
 
-### CARDS — COMPONENTE BASE
+**4. Scroll Reveal** — elementos entram em cena ao rolar. A direção (de baixo, lateral, fade puro, scale), velocidade e easing são decisão do projeto. Stagger entre elementos dentro da mesma seção.
 
-```css
-.gc {
-  background: var(--card);
-  border: 1px solid var(--border);
-  border-radius: 16px;
-  padding: clamp(16px, 2vw, 26px);
-  transition: border-color .3s, background .3s;
-}
-.gc:hover {
-  border-color: var(--border-h);
-  background: var(--card-h);
-}
-```
+**5. Elemento Vivo na Hero** — a seção de abertura precisa de algo que se mova. Pode ser: partículas, orbs com blur, gradiente animado, linhas de grade que aparecem, texto que se revela letra a letra, qualquer coisa que faça a hero parecer viva sem poluir o conteúdo.
 
----
-
-### ANIMAÇÕES — ELEMENTOS OBRIGATÓRIOS
-
-Cada planejamento deve ter, no mínimo:
-
-**1. Custom Cursor** — dot (posição imediata via mousemove) + ring (lerp suave via requestAnimationFrame, fator ~0.14):
-```js
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{ mx=e.clientX; my=e.clientY; dot.style.transform=`translate(calc(${mx}px - 50%),calc(${my}px - 50%))`; });
-(function rf(){ rx+=(mx-rx)*.14; ry+=(my-ry)*.14; ring.style.transform=`translate(calc(${rx}px - 50%),calc(${ry}px - 50%))`; requestAnimationFrame(rf); })();
-```
-
-**2. Progress Bar** — barra de 2–3px no topo, atualizada em scroll:
-```js
-window.addEventListener('scroll',()=>{ const p=(window.scrollY/(document.documentElement.scrollHeight-window.innerHeight))*100; progressEl.style.width=p+'%'; },{passive:true});
-```
-
-**3. Navegação Lateral** — gerada via JS a partir das `<section>` da página. IntersectionObserver com threshold 0.5 atualiza o item ativo e o contador de slides. O estilo pode variar: pontos circulares (dot nav) ou traços horizontais (tick nav) — escolher o que melhor serve o layout do projeto.
-
-**4. Scroll Reveal** — IntersectionObserver com threshold 0.10 adiciona classe `.in` que anima `opacity 0→1` + translate (X ou Y dependendo do projeto). Usar classes `.d1`–`.d5` para stagger por elemento dentro da mesma seção.
-
-**5. Partículas Ambiente** — elementos de fundo que tornam a seção hero viva sem poluir o conteúdo. Pode ser: pontos pequenos (2–4px) com animação de drift suave, ou orbs com `filter:blur(80–100px)` + `@keyframes` float. Escolher o que melhor combina com o tom do projeto.
-
-**6. Budget Bars** — barras de progresso animadas `width 0→valor real` via IntersectionObserver na entrada da seção de investimento. `transition: width 1.4s cubic-bezier(.34,1.56,.64,1)` para overshooting suave.
+**6. Barras de Budget Animadas** — na seção de investimento, as barras crescem de 0 ao valor real na entrada da seção. Easing com bounce leve para transmitir vida.
 
 ---
 
 ### ELEMENTOS FIXOS NA TELA
 
-**Brand watermark** (canto superior esquerdo, fixo): nome DUO + quadrado laranja
-**Slide counter** (canto inferior esquerdo, fixo): número atual em laranja + separador + total
-**Navegação lateral** (borda direita, fixo): item ativo destacado em laranja
+Três elementos permanecem fixos durante o scroll — posição e estilo são livres, desde que não conflitem entre si:
+
+- **Brand watermark** — identificação DUO com acento laranja
+- **Slide counter** — número da section atual + total, com acento laranja
+- **Navegação lateral** — item ativo em laranja
 
 ---
 
-### WATERMARK DE SEÇÃO
-
-Número da seção em tipografia muito grande (100–190px, weight 900, italic) com opacidade ~1–2%, posicionado no canto inferior direito de cada section. Cria profundidade sem distrair do conteúdo.
-
----
-
-### DECORAÇÃO DA HERO
-
-Elementos decorativos na seção hero criam identidade visual para aquele cliente específico:
-- **Monograma:** iniciais do cliente em tipografia gigante (peso 900, italic, opacidade ~4%) no canto direito
-- **Dot grid:** grade de pontos sutis como textura de fundo (`radial-gradient` + `background-size`)
-- **Código de seção:** label técnico (`EXL.01`, `ARC.01`, etc.) no canto superior direito de cada section
-
----
-
-### LAYOUTS DE CONTEÚDO — PRINCÍPIOS
+### PRINCÍPIOS DE LAYOUT
 
 - **Nunca liste tudo** — escolha os pontos de maior impacto e dê espaço a cada um
 - **Hierarquia visual** — eyebrow → headline → lead text → grid/conteúdo → footer stamp
-- **Grids responsivos** — usar `grid-template-columns: repeat(N,1fr)` com `@media` para mobile
-- **Tipografia fluida** — usar `clamp(min,preferred,max)` em todos os font-sizes principais
-- **Contraste intencional** — seções de alta densidade informacional devem ser separadas por seções mais arejadas
+- **Grids responsivos** — mobile funcional é obrigatório
+- **Tipografia fluida** — `clamp()` em todos os font-sizes principais
+- **Contraste de ritmo** — seções densas em informação precisam ser separadas por seções mais arejadas
+- **Watermark numérica** — número da seção em tipografia grande com opacidade baixíssima cria profundidade sem distrair
 
 ---
 
 ### EVOLUÇÃO CONTÍNUA
 
-Cada planejamento entregue é uma referência para o próximo. Perguntar-se:
+Cada planejamento entregue é referência para o próximo — como piso, não como teto.
 
-- O que neste layout pode ser mais limpo?
-- Que animação faria o cliente sentar na cadeira e prestar atenção?
-- Que elemento de layout representa melhor a inteligência estratégica desta seção?
+Antes de escrever o HTML, perguntar-se:
+- Qual direção estética serve este cliente?
+- O que o último planejamento fez que pode ser superado aqui?
+- Que animação faria o cliente parar e prestar atenção?
 - O design está servindo o conteúdo ou competindo com ele?
 
-Não replique o último projeto. Use-o como piso, não como teto.
+**Nunca copiar CSS ou JS de planejamentos anteriores.** Reescrever do zero na direção escolhida.
 
 ---
 
